@@ -1,6 +1,6 @@
 @UrFUCoworkingsAdminPanel_HostAddress = http://localhost:5214
 
-GET {{UrFUCoworkingsAdminPanel_HostAddress}}/weatherforecast/
+GET {{UrFUCoworkingsAdminPanel_HostAddress}}/Coworkings/
 Accept: application/json
 
 ###

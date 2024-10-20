@@ -6,7 +6,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
     {
         private readonly DataManager dataManager;
         public CoworkingService(DataManager dataManager) => this.dataManager = dataManager;
-        public void CreateCoworking()
+        public async Task CreateCoworkingAsync()
         {
             
         }
