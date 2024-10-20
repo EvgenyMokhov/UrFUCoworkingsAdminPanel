@@ -6,5 +6,6 @@ namespace UrFUCoworkingsAdminPanel.Data.Interfaces
     {
         public IEnumerable<Place> GetAllPlaces();
         public Place GetPlace(int id);
+        public void DeletePlace(int id);
     }
 }

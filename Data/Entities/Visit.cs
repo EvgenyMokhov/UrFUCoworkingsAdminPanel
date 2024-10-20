@@ -5,7 +5,7 @@ namespace UrFUCoworkingsAdminPanel.Data.Entities
 {
     [Index(nameof(Id))]
     [Index(nameof(UserId), nameof(ReservationId))]
-    public class Visitor
+    public class Visit
     {
         public int UserId { get; set; }
         public virtual User User { get; set; } = null!;

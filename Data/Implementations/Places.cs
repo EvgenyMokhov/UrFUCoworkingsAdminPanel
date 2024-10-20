@@ -1,15 +1,20 @@
-﻿using UrFUCoworkingsAdminPanel.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using UrFUCoworkingsAdminPanel.Data.Entities;
 using UrFUCoworkingsAdminPanel.Data.Interfaces;
 
 namespace UrFUCoworkingsAdminPanel.Data.Implementations
 {
     internal class Places : IPlaces
     {
-        private EFDBContext Context;
-        public Places(EFDBContext context)
+        private readonly EFDBContext Context;
+        public Places(EFDBContext context) => Context = context;
+
+        public void DeletePlace(int id)
         {
-            Context = context;
+            Context.Places.Remove(GetPlace(id));
+            Context.SaveChanges();
         }
+
         public IEnumerable<Place> GetAllPlaces()
         {
             return Context.Places;

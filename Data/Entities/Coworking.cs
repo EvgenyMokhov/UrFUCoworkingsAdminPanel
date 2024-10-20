@@ -1,8 +1,12 @@
-﻿namespace UrFUCoworkingsAdminPanel.Data.Entities
+﻿using UrFUCoworkingsAdminPanel.Data.Implementations;
+
+namespace UrFUCoworkingsAdminPanel.Data.Entities
 {
     public class Coworking
     {
         public int Id { get; set; }
-        public virtual List<Place> Places { get; set; } = null!;
+        public string Name { get; set; }
+        public virtual List<Zone> Zones { get; set; } = null!;
+        public virtual List<CoworkingsSettings> CoworkingsSettings { get; set; } = null!;
     }
 }

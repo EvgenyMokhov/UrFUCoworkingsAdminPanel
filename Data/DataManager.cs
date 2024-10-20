@@ -5,15 +5,21 @@ namespace UrFUCoworkingsAdminPanel.Data
     public class DataManager
     {
         public IUsers Users { get; set; }
-        public IVisitors Visitors { get; set; }
+        public IVisits Visits { get; set; }
         public IReservations Reservations { get; set; }
         public IPlaces Places { get; set; }
-        public DataManager(IPlaces places, IVisitors visitors, IReservations reservations, IUsers users)
+        public IZones Zones { get; set; }
+        public ICoworkings Coworkings { get; set; }
+        public ICoworkingsSettings CoworkingsSettings { get; set; }
+        public DataManager(IPlaces places, IVisits visits, IReservations reservations, IUsers users, IZones zones, ICoworkings coworkings, ICoworkingsSettings coworkingsSettings)
         {
             Places = places;
-            Visitors = visitors;
+            Visits = visits;
             Users = users;
             Reservations = reservations;
+            Zones = zones;
+            Coworkings = coworkings;
+            CoworkingsSettings = coworkingsSettings;
         }
     }
 }

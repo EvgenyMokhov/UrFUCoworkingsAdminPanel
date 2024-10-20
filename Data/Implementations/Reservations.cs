@@ -5,11 +5,8 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
 {
     internal class Reservations : IReservations
     {
-        private EFDBContext Context;
-        public Reservations(EFDBContext context)
-        {
-            Context = context;
-        }
+        private readonly EFDBContext Context;
+        public Reservations(EFDBContext context) => Context = context;
         public void DeleteReservation(int id)
         {
             Context.Reservations.Remove(GetReservation(id));

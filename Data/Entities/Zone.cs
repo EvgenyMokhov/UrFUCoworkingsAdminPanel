@@ -1,10 +1,9 @@
 ﻿namespace UrFUCoworkingsAdminPanel.Data.Entities
 {
-    public class CoworkingSettings
+    public class Zone
     {
         public int Id { get; set; }
-        public DateTime Opening { get; set; }
-        public DateTime Closing { get; set; }
+        public List<Place> Places { get; set; } = null!;
         public int CoworkingId { get; set; }
         public virtual Coworking Coworking { get; set; } = null!;
     }

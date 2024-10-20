@@ -5,11 +5,8 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
 {
     internal class Users : IUsers
     {
-        private EFDBContext Context;
-        public Users(EFDBContext context)
-        {
-            Context = context;
-        }
+        private readonly EFDBContext Context;
+        public Users(EFDBContext context) => Context = context;
         public IEnumerable<User> GetAllUsers()
         {
             return Context.Users;
