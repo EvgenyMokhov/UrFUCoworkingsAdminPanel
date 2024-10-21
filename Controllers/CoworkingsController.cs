@@ -9,12 +9,12 @@ namespace UrFUCoworkingsAdminPanel.Controllers
     public class CoworkingsController : ControllerBase
     {
         [HttpGet(Name = "GetCoworkings")]
-        public async Task<List<CoworkingView>> GetCoworkings()
+        public async Task<List<CoworkingView>> GetCoworkingsAsync()
         {
             return new();
         }
 
-        [HttpPost("{editModel}",Name = "CreateCoworking")]
+        [HttpPost(Name = "CreateCoworking")]
         public async Task CreateCoworkingAsync(CoworkingEdit editModel)
         {
 
@@ -23,12 +23,11 @@ namespace UrFUCoworkingsAdminPanel.Controllers
         [HttpPut(Name = "UpdateCoworking")]
         public async Task UpdateCoworkingAsync([FromBody] CoworkingEdit editModel)
         {
-            if (editModel.Id == 10)
-                Console.WriteLine("Пенис");
+            
         }
 
-        [HttpGet("{id}", Name = "GetCoworking")]
+        [HttpGet("{coworkingId}", Name = "GetCoworking")]
         public async Task<CoworkingView> GetCoworkingByIdAsync(int id)
         { return new(); }
-}
+    }
 }

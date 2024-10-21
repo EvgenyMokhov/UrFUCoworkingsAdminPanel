@@ -1,4 +1,5 @@
-﻿using UrFUCoworkingsAdminPanel.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using UrFUCoworkingsAdminPanel.Data.Entities;
 using UrFUCoworkingsAdminPanel.Data.Interfaces;
 
 namespace UrFUCoworkingsAdminPanel.Data.Implementations
@@ -18,12 +19,12 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
             return Context.Coworkings.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<Coworking> GetCoworkings()
+        public async Task<IEnumerable<Coworking>> GetCoworkingsAsync()
         {
-            return Context.Coworkings;
+            return await Context.Coworkings.ToListAsync();
         }
 
-        public void UpdateCoworking(Coworking coworking)
+        public async Task UpdateCoworkingAsync(Coworking coworking)
         {
             if (coworking.Id == 0)
                 Context.Coworkings.Add(coworking);

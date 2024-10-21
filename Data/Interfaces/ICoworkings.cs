@@ -4,9 +4,9 @@ namespace UrFUCoworkingsAdminPanel.Data.Interfaces
 {
     public interface ICoworkings
     {
-        public IEnumerable<Coworking> GetCoworkings();
+        public Task<IEnumerable<Coworking>> GetCoworkingsAsync();
         public Coworking GetCoworking(int id);
-        public void UpdateCoworking(Coworking coworking);
+        public Task UpdateCoworkingAsync(Coworking coworking);
         public void DeleteCoworking(int id);
     }
 }
