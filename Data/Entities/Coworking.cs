@@ -7,6 +7,6 @@ namespace UrFUCoworkingsAdminPanel.Data.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual List<Zone> Zones { get; set; } = null!;
-        public virtual List<CoworkingsSettings> CoworkingsSettings { get; set; } = null!;
+        public virtual List<CoworkingSettings> Settings { get; set; } = null!;
     }
 }

@@ -8,15 +8,15 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
     {
         private readonly EFDBContext Context;
         public Coworkings(EFDBContext context) => Context = context;
-        public void DeleteCoworking(int id)
+        public async Task DeleteCoworking(int id)
         {
-            Context.Coworkings.Remove(GetCoworking(id));
-            Context.SaveChanges();
+            Context.Coworkings.Remove(await GetCoworkingAsync(id));
+            await Context.SaveChangesAsync();
         }
 
-        public Coworking GetCoworking(int id)
+        public async Task<Coworking> GetCoworkingAsync(int id)
         {
-            return Context.Coworkings.FirstOrDefault(x => x.Id == id);
+            return await Context.Coworkings.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Coworking>> GetCoworkingsAsync()

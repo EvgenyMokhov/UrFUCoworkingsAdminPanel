@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UrFUCoworkingsAdminPanel.BusinessLogic;
+using UrFUCoworkingsAdminPanel.Data;
 using UrFUCoworkingsAdminPanel.Models;
 
 
@@ -8,16 +10,19 @@ namespace UrFUCoworkingsAdminPanel.Controllers
     [ApiController]
     public class CoworkingsController : ControllerBase
     {
+        private readonly ServiceManager ServiceManager;
+        public CoworkingsController(DataManager dataManager) => ServiceManager = new(dataManager);
+
         [HttpGet(Name = "GetCoworkings")]
         public async Task<List<CoworkingView>> GetCoworkingsAsync()
         {
-            return new();
+            return await ServiceManager.CoworkingService.GetCoworkingsAsync();
         }
 
         [HttpPost(Name = "CreateCoworking")]
-        public async Task CreateCoworkingAsync(CoworkingEdit editModel)
+        public async Task CreateCoworkingAsync([FromBody] CoworkingEdit editModel)
         {
-
+            await ServiceManager.CoworkingService.CreateCoworkingAsync(editModel);
         }
 
         [HttpPut(Name = "UpdateCoworking")]
@@ -27,7 +32,7 @@ namespace UrFUCoworkingsAdminPanel.Controllers
         }
 
         [HttpGet("{coworkingId}", Name = "GetCoworking")]
-        public async Task<CoworkingView> GetCoworkingByIdAsync(int id)
-        { return new(); }
+        public async Task<CoworkingEdit> GetCoworkingByIdAsync(int id)
+        { return await ServiceManager.CoworkingService.GetCoworking(id); }
     }
 }
