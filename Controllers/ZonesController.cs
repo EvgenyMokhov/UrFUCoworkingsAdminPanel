@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
+﻿using Microsoft.AspNetCore.Mvc;
+using UrFUCoworkingsAdminPanel.BusinessLogic;
+using UrFUCoworkingsAdminPanel.Data;
 using UrFUCoworkingsAdminPanel.Models;
 
 namespace UrFUCoworkingsAdminPanel.Controllers
@@ -9,22 +9,31 @@ namespace UrFUCoworkingsAdminPanel.Controllers
     [ApiController]
     public class ZonesController : ControllerBase
     {
+        private readonly ServiceManager ServiceManager;
+        public ZonesController(DataManager dataManager) => ServiceManager = new(dataManager);
+
         [HttpGet(Name = "GetZones")]
         public async Task<List<ZoneEdit>> GetZonesAsync([FromQuery] int coworkingId)
         {
-            return new();
+            return await ServiceManager.ZoneService.GetZonesAsync(coworkingId);
         }
 
         [HttpPost(Name = "CreateZone")]
         public async Task CreateZoneAsync([FromQuery] int coworkingId)
         {
-
+            await ServiceManager.ZoneService.CreateZoneAsync(coworkingId);
         }
 
         [HttpPut(Name = "UpdateZone")]
-        public async Task UpdateZoneAsync([FromQuery] int coworkingId)
+        public async Task UpdateZoneAsync([FromQuery] int coworkingId, [FromBody] ZoneEdit editModel)
         {
+            await ServiceManager.ZoneService.UpdateZoneAsync(coworkingId, editModel);
+        }
 
+        [HttpDelete(Name = "DeleteZone")]
+        public async Task DeleteZoneAsync([FromQuery] int coworkingId, [FromQuery] int zoneId)
+        {
+            await ServiceManager.ZoneService.DeleteZoneAsync(coworkingId, zoneId);
         }
     }
 }

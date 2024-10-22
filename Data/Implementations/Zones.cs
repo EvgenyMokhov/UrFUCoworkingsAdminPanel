@@ -1,4 +1,6 @@
-﻿using UrFUCoworkingsAdminPanel.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
+using UrFUCoworkingsAdminPanel.Data.Entities;
 using UrFUCoworkingsAdminPanel.Data.Interfaces;
 
 namespace UrFUCoworkingsAdminPanel.Data.Implementations
@@ -7,15 +9,15 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
     {
         private readonly EFDBContext Context;
         public Zones(EFDBContext context) => Context = context;
-        public void DeleteZone(int id)
+        public async Task DeleteZoneAsync(int id)
         {
-            Context.Zones.Remove(GetZone(id));
+            Context.Zones.Remove(await Context.Zones.FirstOrDefaultAsync(z => z.Id == id));
             Context.SaveChanges();
         }
 
-        public Zone GetZone(int id)
+        public async Task<Zone> GetZoneAsync(int id)
         {
-            return Context.Zones.FirstOrDefault(z => z.Id == id);
+            return await Context.Zones.FirstOrDefaultAsync(z => z.Id == id);
         }
 
         public IEnumerable<Zone> GetZones()
@@ -23,13 +25,18 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
             return Context.Zones;
         }
 
-        public void UpdateZone(Zone zone)
+        public async Task UpdateZoneAsync(Zone zone)
         {
             if (zone.Id == 0)
-                Context.Zones.Add(zone);
+                await Context.Zones.AddAsync(zone);
             else
-                Context.Entry(zone).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            Context.SaveChanges();
+                Context.Entry(zone).State = EntityState.Modified;
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task<List<Zone>> GetZonesWithCoworkingIdAsync(int coworkingId)
+        {
+            return await Context.Zones.Where(zone => zone.CoworkingId == coworkingId).ToListAsync();
         }
     }
 }

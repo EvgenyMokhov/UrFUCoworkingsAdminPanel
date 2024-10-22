@@ -25,5 +25,17 @@ namespace UrFUCoworkingsAdminPanel.Controllers
         {
 
         }
+
+        [HttpDelete(Name = "DeleteSettingAnyway")]
+        public async Task DeleteSettingAsync([FromQuery] int coworkingId, [FromQuery] int settingId)
+        {
+
+        }
+
+        [HttpDelete("{settingId}", Name = "TryDeleteSetting")]
+        public async Task<bool> TryDeleteSettingAsync([FromQuery] int coworkingId, int settingId)
+        {
+            return true;
+        }
     }
 }

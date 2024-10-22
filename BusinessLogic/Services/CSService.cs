@@ -10,7 +10,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public CSService(DataManager dataManager) => this.dataManager = dataManager;
         public CSEdit DbCSToEdit(CoworkingSettings settings)
         {
-            return new(){ Id = settings.Id, Day = settings.Day, Opening = settings.Opening, Closing = settings.Closing };
+            return new(){ Id = settings.Id, Day = settings.Day, Opening = settings.Opening, Closing = settings.Closing, IsWorking = settings.IsWorking };
         }
     }
 }

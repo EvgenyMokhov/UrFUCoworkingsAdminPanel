@@ -28,11 +28,19 @@ namespace UrFUCoworkingsAdminPanel.Controllers
         [HttpPut(Name = "UpdateCoworking")]
         public async Task UpdateCoworkingAsync([FromBody] CoworkingEdit editModel)
         {
-            
+            await ServiceManager.CoworkingService.UpdateCoworkingAsync(editModel);
         }
 
         [HttpGet("{coworkingId}", Name = "GetCoworking")]
-        public async Task<CoworkingEdit> GetCoworkingByIdAsync(int id)
-        { return await ServiceManager.CoworkingService.GetCoworking(id); }
+        public async Task<CoworkingEdit> GetCoworkingByIdAsync(int coworkingId)
+        { 
+            return await ServiceManager.CoworkingService.GetCoworkingAsync(coworkingId); 
+        }
+
+        [HttpDelete(Name = "DeleteCoworking")]
+        public async Task DeleteCoworkingAsync([FromQuery] int coworkingId)
+        {
+            
+        }
     }
 }

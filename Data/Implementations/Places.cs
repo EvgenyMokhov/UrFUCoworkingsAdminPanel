@@ -24,5 +24,14 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
         {
             return Context.Places.FirstOrDefault(x => x.Id == id);
         }
+
+        public async Task UpdatePlaceAsync(Place place)
+        {
+            if (place.Id == 0)
+                await Context.Places.AddAsync(place);
+            else
+                Context.Entry(place).State = EntityState.Modified;
+            await Context.SaveChangesAsync();
+        }
     }
 }
