@@ -12,7 +12,7 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
         public async Task DeleteZoneAsync(int id)
         {
             Context.Zones.Remove(await Context.Zones.FirstOrDefaultAsync(z => z.Id == id));
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
         public async Task<Zone> GetZoneAsync(int id)

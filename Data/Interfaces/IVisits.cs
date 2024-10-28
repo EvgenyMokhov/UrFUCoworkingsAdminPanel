@@ -8,6 +8,6 @@ namespace UrFUCoworkingsAdminPanel.Data.Interfaces
         public Visit GetVisit(Guid guid);
         public Visit GetVisit(int userId, int reservationId);
         public void UpdateVisit(Visit visit);
-        public IEnumerable<Visit> GetVisitsByReservationId(int reservationId);
+        public Task<List<Visit>> GetVisitsByReservationIdAsync(int reservationId);
     }
 }

@@ -32,18 +32,11 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             Zone zone = await EditToDb(coworkingId, zoneEdit);
             await dataManager.Zones.UpdateZoneAsync(zone);
             PlaceService placeService = new(dataManager);
-            foreach (PlaceEdit place in zoneEdit.Places)
+            for (int i = 0; i < zoneEdit.PlacesCount; i++)
                 zone.Places.Add(await placeService.CreatePlaceAsync(zone.Id));
-            Coworking coworking = await dataManager.Coworkings.GetCoworkingAsync(coworkingId);
-            for (int i = 0; i < coworking.Zones.Count; i++)
-                if (coworking.Zones[i].Id == zone.Id)
-                {
-                    coworking.Zones[i] = zone;
-                    break;
-                }
         }
 
-        public async Task DeleteZoneAsync(int coworkingId, int zoneId)
+        public async Task DeleteZoneAsync(int zoneId)
         {
             await dataManager.Zones.DeleteZoneAsync(zoneId);
         }
@@ -52,10 +45,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         {
             ZoneEdit editModel = new();
             editModel.Id = zone.Id;
-            editModel.Places = new();
-            PlaceService placeService = new(dataManager);
-            foreach (Place place in zone.Places)
-                editModel.Places.Add(placeService.DbPlaceToEdit(place));
+            editModel.PlacesCount = zone.Places.Count;
             return editModel;
         }
 

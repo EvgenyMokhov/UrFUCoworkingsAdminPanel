@@ -5,9 +5,9 @@ namespace UrFUCoworkingsAdminPanel.Data.Interfaces
     public interface IReservations
     {
         public IEnumerable<Reservation> GetAllReservations();
-        public Reservation GetReservation(int id);
-        public void UpdateReservation(Reservation reservation);
-        public void DeleteReservation(int id);
-        public IEnumerable<Reservation> GetReservationsOnDate(Place place, DateOnly date);
+        public Task<Reservation> GetReservationAsync(int id);
+        public Task UpdateReservationAsync(Reservation reservation);
+        public Task DeleteReservationAsync(int id);
+        public Task<List<Reservation>> GetReservationsOnDateAsync(DateOnly date);
     }
 }

@@ -1,4 +1,5 @@
-﻿using UrFUCoworkingsAdminPanel.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using UrFUCoworkingsAdminPanel.Data.Entities;
 using UrFUCoworkingsAdminPanel.Data.Interfaces;
 
 namespace UrFUCoworkingsAdminPanel.Data.Implementations
@@ -29,9 +30,9 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
             Context.SaveChanges();
         }
 
-        public IEnumerable<Visit> GetVisitsByReservationId(int reservationId)
+        public async Task<List<Visit>> GetVisitsByReservationIdAsync(int reservationId)
         {
-            return Context.Visits.Where(visit => visit.ReservationId == reservationId);
+            return await Context.Visits.Where(visit => visit.ReservationId == reservationId).ToListAsync();
         }
     }
 }

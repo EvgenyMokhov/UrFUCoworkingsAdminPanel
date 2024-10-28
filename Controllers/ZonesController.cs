@@ -31,9 +31,9 @@ namespace UrFUCoworkingsAdminPanel.Controllers
         }
 
         [HttpDelete(Name = "DeleteZone")]
-        public async Task DeleteZoneAsync([FromQuery] int coworkingId, [FromQuery] int zoneId)
+        public async Task DeleteZoneAsync([FromQuery] int zoneId)
         {
-            await ServiceManager.ZoneService.DeleteZoneAsync(coworkingId, zoneId);
+            await ServiceManager.ZoneService.DeleteZoneAsync(zoneId);
         }
     }
 }

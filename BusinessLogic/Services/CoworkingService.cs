@@ -65,33 +65,5 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             viewModel.Zones = coworking.Zones.Select(zone => new ZoneView() { Id = zone.Id, Places = zone.Places.Select(place => new PlaceView() { Id = place.Id }).ToList() }).ToList();
             return viewModel;
         }
-
-        public void Update(Coworking coworking, Zone zone)
-        {
-            bool flag = true;
-            for (int i = 0; i < coworking.Zones.Count; i++)
-                if (zone.Id == coworking.Zones[i].Id)
-                {
-                    flag = false;
-                    coworking.Zones[i] = zone;
-                    break;
-                }
-            if (flag) 
-                coworking.Zones.Add(zone);
-        }
-
-        public void Update(Coworking coworking, CoworkingSettings settings)
-        {
-            bool flag = true;
-            for (int i = 0; i < coworking.Settings.Count; i++)
-                if (settings.Id == coworking.Zones[i].Id)
-                {
-                    flag = false;
-                    coworking.Settings[i] = settings;
-                    break;
-                }
-            if (flag)
-                coworking.Settings.Add(settings);
-        }
     }
 }

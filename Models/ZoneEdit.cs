@@ -5,6 +5,6 @@ namespace UrFUCoworkingsAdminPanel.Models
     public class ZoneEdit
     {
         public int Id { get; set; }
-        public List<PlaceEdit> Places { get; set; }
+        public int PlacesCount { get; set; }
     }
 }

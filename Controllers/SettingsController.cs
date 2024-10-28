@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UrFUCoworkingsAdminPanel.BusinessLogic;
+using UrFUCoworkingsAdminPanel.Data;
+using UrFUCoworkingsAdminPanel.Data.Entities;
 using UrFUCoworkingsAdminPanel.Models;
 
 namespace UrFUCoworkingsAdminPanel.Controllers
@@ -8,34 +11,38 @@ namespace UrFUCoworkingsAdminPanel.Controllers
     [ApiController]
     public class SettingsController : ControllerBase
     {
+        private readonly ServiceManager ServiceManager;
+        public SettingsController(DataManager dataManager) => ServiceManager = new(dataManager);
+
         [HttpGet(Name = "GetSettings")]
         public async Task<List<CSEdit>> GetSettingsAsync([FromQuery] int coworkingId)
         {
-            return new();
+            return await ServiceManager.CSService.GetSettingsAsync(coworkingId);
         }
 
         [HttpPost(Name = "CreateSetting")]
-        public async Task CreateSettingAsync([FromQuery] int coworkingId, [FromBody] CSEdit model)
+        public async Task CreateSettingAsync([FromQuery] int coworkingId)
         {
-
+            await ServiceManager.CSService.CreateSettingAsync(coworkingId);
         }
 
-        [HttpPut(Name = "UpdateSetting")]
-        public async Task UpdateSettingAsync([FromQuery] int coworkingId, [FromBody] CSEdit model)
-        {
+        [HttpPut(Name = "SaveSettingAnyway")]
+        public async Task<List<List<int>>> UpdateSettingAsync([FromQuery] int coworkingId, [FromBody] CSEdit model)
 
+        {
+            return await ServiceManager.CSService.CSSaveAsync(coworkingId, model);
         }
 
-        [HttpDelete(Name = "DeleteSettingAnyway")]
-        public async Task DeleteSettingAsync([FromQuery] int coworkingId, [FromQuery] int settingId)
+        [HttpPut("{coworkingId}", Name = "TrySaveSetting")]
+        public async Task<List<int>> TrySaveSettingAsync(int coworkingId, [FromBody] CSEdit model)
         {
-
+            return await ServiceManager.CSService.TryCSSaveAsync(coworkingId, model);
         }
 
-        [HttpDelete("{settingId}", Name = "TryDeleteSetting")]
-        public async Task<bool> TryDeleteSettingAsync([FromQuery] int coworkingId, int settingId)
+        [HttpDelete(Name = "DeleteSetting")]
+        public async Task DeleteSettingAsync([FromQuery] int settingId)
         {
-            return true;
+            await ServiceManager.CSService.DeleteSettingAsync(settingId);
         }
     }
 }

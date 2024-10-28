@@ -1,4 +1,5 @@
-﻿using UrFUCoworkingsAdminPanel.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using UrFUCoworkingsAdminPanel.Data.Entities;
 using UrFUCoworkingsAdminPanel.Data.Interfaces;
 
 namespace UrFUCoworkingsAdminPanel.Data.Implementations
@@ -7,10 +8,10 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
     {
         private readonly EFDBContext Context;
         public Reservations(EFDBContext context) => Context = context;
-        public void DeleteReservation(int id)
+        public async Task DeleteReservationAsync(int id)
         {
-            Context.Reservations.Remove(GetReservation(id));
-            Context.SaveChanges();
+            Context.Reservations.Remove(await Context.Reservations.FirstOrDefaultAsync(x => x.Id == id));
+            await Context.SaveChangesAsync();
         }
 
         public IEnumerable<Reservation> GetAllReservations()
@@ -18,23 +19,23 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
             return Context.Reservations;
         }
 
-        public Reservation GetReservation(int id)
+        public async Task<Reservation> GetReservationAsync(int id)
         {
-            return Context.Reservations.FirstOrDefault(x => x.Id == id);
+            return await Context.Reservations.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void UpdateReservation(Reservation reservation)
+        public async Task UpdateReservationAsync(Reservation reservation)
         {
             if (reservation.Id == 0)
-                Context.Reservations.Add(reservation);
+                await Context.Reservations.AddAsync(reservation);
             else
-                Context.Entry(reservation).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            Context.SaveChanges();
+                Context.Entry(reservation).State = EntityState.Modified;
+            await Context.SaveChangesAsync();
         }
 
-        public IEnumerable<Reservation> GetReservationsOnDate(Place place, DateOnly date)
+        public async Task<List<Reservation>> GetReservationsOnDateAsync(DateOnly date)
         {
-            return Context.Reservations.Where(res => DateOnly.FromDateTime(res.ReservationBegin).CompareTo(date) >= 0 && res.Places.Contains(place));
+            return await Context.Reservations.Where(res => DateOnly.FromDateTime(res.ReservationBegin) == date).ToListAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UrFUCoworkingsAdminPanel.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using UrFUCoworkingsAdminPanel.Data.Entities;
 using UrFUCoworkingsAdminPanel.Data.Interfaces;
 
 namespace UrFUCoworkingsAdminPanel.Data.Implementations
@@ -7,29 +8,29 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
     {
         private readonly EFDBContext Context;
         public CoworkingsSettings(EFDBContext context) => Context = context;
-        public void DeleteCoworkingSettings(int id)
+        public async Task DeleteCoworkingSettingsAsync(int id)
         {
-            Context.CoworkingSettings.Remove(GetCoworkingSettings(id));
-            Context.SaveChanges();
+            Context.CoworkingSettings.Remove(await GetCoworkingSettingAsync(id));
+            await Context.SaveChangesAsync();
         }
 
-        public IEnumerable<CoworkingSettings> GetCoworkingSettings()
+        public async Task<List<CoworkingSettings>> GetCoworkingSettingsAsync(int coworkingId)
         {
-            return Context.CoworkingSettings;
+            return await Context.CoworkingSettings.Where(s => s.CoworkingId == coworkingId).ToListAsync();
         }
 
-        public CoworkingSettings GetCoworkingSettings(int id)
+        public async Task<CoworkingSettings> GetCoworkingSettingAsync(int id)
         {
-            return Context.CoworkingSettings.FirstOrDefault(c => c.Id == id);
+            return await Context.CoworkingSettings.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public void UpdateCoworkingSettings(CoworkingSettings coworkingSettings)
+        public async Task UpdateCoworkingSettingsAsync(CoworkingSettings coworkingSettings)
         {
             if (coworkingSettings.Id == 0)
-                Context.CoworkingSettings.Add(coworkingSettings);
+                await Context.CoworkingSettings.AddAsync(coworkingSettings);
             else 
-                Context.Entry(coworkingSettings).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            Context.SaveChanges();
+                Context.Entry(coworkingSettings).State = EntityState.Modified;
+            await Context.SaveChangesAsync();
         }
     }
 }
