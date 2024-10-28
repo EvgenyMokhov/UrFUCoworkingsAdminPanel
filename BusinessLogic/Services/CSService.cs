@@ -79,7 +79,6 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             return reservationIds;
         }
 
-
         private void EditToDb(int coworkingId, CSEdit model, CoworkingSettings settings)
         {
             settings.CoworkingId = coworkingId;
