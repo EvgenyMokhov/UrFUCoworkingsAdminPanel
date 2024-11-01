@@ -24,7 +24,7 @@ builder.Services.AddDbContext<EFDBContext>(options =>
 {
     options.UseSqlServer(connection);
 });
-
+    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

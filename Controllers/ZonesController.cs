@@ -10,7 +10,7 @@ namespace UrFUCoworkingsAdminPanel.Controllers
     public class ZonesController : ControllerBase
     {
         private readonly ServiceManager ServiceManager;
-        public ZonesController(DataManager dataManager) => ServiceManager = new(dataManager);
+        public ZonesController(IServiceProvider provider) => ServiceManager = new(provider);
 
         [HttpGet(Name = "GetZones")]
         public async Task<List<ZoneEdit>> GetZonesAsync([FromQuery] int coworkingId)

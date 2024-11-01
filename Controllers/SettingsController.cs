@@ -12,7 +12,7 @@ namespace UrFUCoworkingsAdminPanel.Controllers
     public class SettingsController : ControllerBase
     {
         private readonly ServiceManager ServiceManager;
-        public SettingsController(DataManager dataManager) => ServiceManager = new(dataManager);
+        public SettingsController(IServiceProvider provider) => ServiceManager = new(provider);
 
         [HttpGet(Name = "GetSettings")]
         public async Task<List<CSEdit>> GetSettingsAsync([FromQuery] int coworkingId)

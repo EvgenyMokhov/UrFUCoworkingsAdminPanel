@@ -11,7 +11,7 @@ namespace UrFUCoworkingsAdminPanel.Controllers
     public class CoworkingsController : ControllerBase
     {
         private readonly ServiceManager ServiceManager;
-        public CoworkingsController(DataManager dataManager) => ServiceManager = new(dataManager);
+        public CoworkingsController(IServiceProvider provider) => ServiceManager = new(provider);
 
         [HttpGet(Name = "GetCoworkings")]
         public async Task<List<CoworkingView>> GetCoworkingsAsync()
