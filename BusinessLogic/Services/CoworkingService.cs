@@ -8,15 +8,11 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
     public class CoworkingService
     {
         private readonly IServiceProvider serviceProvider;
-        public CoworkingService(IServiceProvider provider)
-        {
-            serviceProvider = provider;
-        }
+        public CoworkingService(IServiceProvider provider) => serviceProvider = provider;
         public async Task CreateCoworkingAsync(CoworkingEdit editModel)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             Coworking coworking = new();
             coworking.Id = editModel.Id;
             coworking.Name = editModel.Name;
@@ -30,8 +26,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public async Task<List<CoworkingView>> GetCoworkingsAsync()
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             IEnumerable<Coworking> data = await dataManager.Coworkings.GetCoworkingsAsync();
             return data.Select(CoworkingDbToView).ToList();
         }
@@ -39,8 +34,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public async Task<CoworkingEdit> GetCoworkingAsync(int id)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             Coworking coworking = await dataManager.Coworkings.GetCoworkingAsync(id);
             CoworkingEdit editModel = new();
             editModel.Id = id;
@@ -61,8 +55,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public async Task UpdateCoworkingAsync(CoworkingEdit editModel)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             Coworking coworking = await dataManager.Coworkings.GetCoworkingAsync(editModel.Id);
             coworking.Name = editModel.Name;
             coworking.Opening = editModel.Opening;

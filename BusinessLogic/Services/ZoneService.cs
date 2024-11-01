@@ -7,19 +7,13 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
 {
     public class ZoneService
     {
-        private readonly DataManagerFactory DMFactory;
         private readonly IServiceProvider serviceProvider;
-        public ZoneService(IServiceProvider provider)
-        {
-            DMFactory = new DataManagerFactory(provider);
-            serviceProvider = provider;
-        }
+        public ZoneService(IServiceProvider provider) => serviceProvider = provider;
 
         public async Task<List<ZoneEdit>> GetZonesAsync(int coworkingId)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             List<Zone> zones = await dataManager.Zones.GetZonesWithCoworkingIdAsync(coworkingId);
             return zones.Select(DbZoneToEdit).ToList();
         }
@@ -27,8 +21,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public async Task CreateZoneAsync(int coworkingId)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             Zone zone = new();
             zone.CoworkingId = coworkingId;
             zone.Coworking = await dataManager.Coworkings.GetCoworkingAsync(coworkingId);
@@ -41,8 +34,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public async Task UpdateZoneAsync(int coworkingId, ZoneEdit zoneEdit)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             Zone zone = await EditToDb(coworkingId, zoneEdit);
             await dataManager.Zones.UpdateZoneAsync(zone);
             PlaceService placeService = new(serviceProvider);
@@ -53,8 +45,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public async Task DeleteZoneAsync(int zoneId)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             await dataManager.Zones.DeleteZoneAsync(zoneId);
         }
 
@@ -69,8 +60,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         private async Task<Zone> EditToDb(int coworkingId, ZoneEdit editModel)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             Zone zone = await dataManager.Zones.GetZoneAsync(editModel.Id);
             zone.Id = editModel.Id;
             zone.CoworkingId = coworkingId;

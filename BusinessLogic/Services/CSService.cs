@@ -6,13 +6,8 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
 {
     public class CSService
     {
-        private readonly DataManagerFactory DMFactory;
         private readonly IServiceProvider serviceProvider;
-        public CSService(IServiceProvider provider)
-        {
-            DMFactory = new DataManagerFactory(provider);
-            serviceProvider = provider;
-        }
+        public CSService(IServiceProvider provider) => serviceProvider = provider;
 
         public CSEdit DbCSToEdit(CoworkingSettings settings)
         {
@@ -22,8 +17,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public async Task<List<CSEdit>> GetSettingsAsync(int coworkingId)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             List<CoworkingSettings> cs = await dataManager.CoworkingsSettings.GetCoworkingSettingsAsync(coworkingId);
             return cs.Select(DbCSToEdit).ToList();
         }
@@ -31,8 +25,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public async Task CreateSettingAsync(int coworkingId)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             CoworkingSettings setting = new();
             setting.Id = 0;
             setting.Day = new();
@@ -46,16 +39,14 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public async Task DeleteSettingAsync(int settingId)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             await dataManager.CoworkingsSettings.DeleteCoworkingSettingsAsync(settingId);
         }
 
         public async Task<List<List<int>>> CSSaveAsync(int coworkingId, CSEdit model)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             CoworkingSettings setting = await dataManager.CoworkingsSettings.GetCoworkingSettingAsync(model.Id);
             EditToDb(coworkingId, model, setting);
             await dataManager.CoworkingsSettings.UpdateCoworkingSettingsAsync(setting);
@@ -79,8 +70,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public async Task<List<int>> TryCSSaveAsync(int coworkingId, CSEdit model)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManagerFactory DMFactory = new(serviceProvider);
-            DataManager dataManager = DMFactory.Create();
+            DataManager dataManager = new(serviceProvider);
             List<Reservation> reservations = await dataManager.Reservations.GetReservationsOnDateAsync(model.Day);
             List<int> reservationIds = new();
             foreach (Reservation reservation in reservations)

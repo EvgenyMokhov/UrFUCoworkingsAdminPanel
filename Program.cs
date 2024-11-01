@@ -33,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdminPanel API v0.0.1 alpha");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdminPanel API ver. 1.1");
     });
 }
 

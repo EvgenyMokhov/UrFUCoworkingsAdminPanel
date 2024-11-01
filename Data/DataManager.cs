@@ -11,15 +11,15 @@ namespace UrFUCoworkingsAdminPanel.Data
         public IZones Zones { get; set; }
         public ICoworkings Coworkings { get; set; }
         public ICoworkingsSettings CoworkingsSettings { get; set; }
-        public DataManager(IPlaces places, IVisits visits, IReservations reservations, IUsers users, IZones zones, ICoworkings coworkings, ICoworkingsSettings coworkingsSettings)
+        public DataManager(IServiceProvider provider)
         {
-            Places = places;
-            Visits = visits;
-            Users = users;
-            Reservations = reservations;
-            Zones = zones;
-            Coworkings = coworkings;
-            CoworkingsSettings = coworkingsSettings;
+            Places = provider.GetRequiredService<IPlaces>();
+            Visits = provider.GetRequiredService<IVisits>();
+            Reservations = provider.GetRequiredService<IReservations>();
+            Users = provider.GetRequiredService<IUsers>();
+            Zones = provider.GetRequiredService<IZones>();
+            Coworkings = provider.GetRequiredService<ICoworkings>();
+            CoworkingsSettings = provider.GetRequiredService<ICoworkingsSettings>();
         }
     }
 }
