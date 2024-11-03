@@ -2,7 +2,7 @@
 using System.Net;
 using UrFUCoworkingsAdminPanel.Data.Entities;
 
-namespace UrFUCoworkingsAdminPanel.Models
+namespace UrFUCoworkingsAdminPanel.Models.DTOs
 {
     public class CoworkingEdit
     {

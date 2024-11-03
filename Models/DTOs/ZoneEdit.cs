@@ -1,6 +1,6 @@
 ﻿using UrFUCoworkingsAdminPanel.Data.Implementations;
 
-namespace UrFUCoworkingsAdminPanel.Models
+namespace UrFUCoworkingsAdminPanel.Models.DTOs
 {
     public class ZoneEdit
     {

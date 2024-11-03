@@ -1,6 +1,6 @@
 ﻿using UrFUCoworkingsAdminPanel.Data;
 using UrFUCoworkingsAdminPanel.Data.Entities;
-using UrFUCoworkingsAdminPanel.Models;
+using UrFUCoworkingsAdminPanel.Models.DTOs;
 
 namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
 {
@@ -43,7 +43,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             await dataManager.CoworkingsSettings.DeleteCoworkingSettingsAsync(settingId);
         }
 
-        public async Task<List<List<int>>> CSSaveAsync(int coworkingId, CSEdit model)
+        public async Task<List<(int UserId, int ReservationId)>> CSSaveAsync(int coworkingId, CSEdit model)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = new(serviceProvider);
@@ -51,7 +51,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             EditToDb(coworkingId, model, setting);
             await dataManager.CoworkingsSettings.UpdateCoworkingSettingsAsync(setting);
             List<Reservation> reservations = await dataManager.Reservations.GetReservationsOnDateAsync(model.Day);
-            List<List<int>> userIds = new();
+            List<(int UserId, int ReservationId)> userIds = new();
             foreach (Reservation reservation in reservations) 
             {
                 TimeOnly reservationBegin = TimeOnly.FromDateTime(reservation.ReservationBegin);
@@ -60,7 +60,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
                 {
                     List<Visit> visits = await dataManager.Visits.GetVisitsByReservationIdAsync(reservation.Id);
                     foreach (Visit visit in visits)
-                        userIds.Add(new() { visit.UserId, reservation.Id });
+                        userIds.Add(new() { UserId = visit.UserId, ReservationId = reservation.Id });
                     await dataManager.Reservations.DeleteReservationAsync(reservation.Id);
                 }
             }

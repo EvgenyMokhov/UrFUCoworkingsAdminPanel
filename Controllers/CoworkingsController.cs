@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UrFUCoworkingsAdminPanel.BusinessLogic;
-using UrFUCoworkingsAdminPanel.Data;
-using UrFUCoworkingsAdminPanel.Models;
+using UrFUCoworkingsAdminPanel.Models.DTOs;
 
 
 namespace UrFUCoworkingsAdminPanel.Controllers

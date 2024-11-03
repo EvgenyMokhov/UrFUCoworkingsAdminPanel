@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using UrFUCoworkingsAdminPanel.BusinessLogic;
 using UrFUCoworkingsAdminPanel.Data;
 using UrFUCoworkingsAdminPanel.Data.Entities;
-using UrFUCoworkingsAdminPanel.Models;
+using UrFUCoworkingsAdminPanel.Models.DTOs;
 
 namespace UrFUCoworkingsAdminPanel.Controllers
 {
@@ -27,7 +27,7 @@ namespace UrFUCoworkingsAdminPanel.Controllers
         }
 
         [HttpPut(Name = "SaveSettingAnyway")]
-        public async Task<List<List<int>>> UpdateSettingAsync([FromQuery] int coworkingId, [FromBody] CSEdit model)
+        public async Task<List<(int UserId, int ReservationId)>> UpdateSettingAsync([FromQuery] int coworkingId, [FromBody] CSEdit model)
 
         {
             return await ServiceManager.CSService.CSSaveAsync(coworkingId, model);

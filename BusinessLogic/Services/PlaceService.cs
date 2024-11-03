@@ -1,6 +1,6 @@
 ﻿using UrFUCoworkingsAdminPanel.Data;
 using UrFUCoworkingsAdminPanel.Data.Entities;
-using UrFUCoworkingsAdminPanel.Models;
+using UrFUCoworkingsAdminPanel.Models.DTOs;
 
 namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
 {

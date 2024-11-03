@@ -1,4 +1,4 @@
-﻿namespace UrFUCoworkingsAdminPanel.Models
+﻿namespace UrFUCoworkingsAdminPanel.Models.DTOs
 {
     public class PlaceView
     {
