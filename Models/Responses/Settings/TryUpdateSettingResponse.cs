@@ -2,8 +2,8 @@
 
 namespace UrFUCoworkingsAdminPanel.Models.Responses.Settings
 {
-    [EntityName("trySaveSetting-responses")]
-    public class TrySaveSettingResponse
+    [EntityName("try-update-setting-responses-queue")]
+    public class TryUpdateSettingResponse
     {
         public Guid Id { get; set; }
         public List<int> ResponseData { get; set; }

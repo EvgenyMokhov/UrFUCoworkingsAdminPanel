@@ -2,7 +2,7 @@
 
 namespace UrFUCoworkingsAdminPanel.Models.Responses.Settings
 {
-    [EntityName("deleteSetting-responses")]
+    [EntityName("delete-setting-responses-queue")]
     public class DeleteSettingResponse
     {
         public Guid Id { get; set; }

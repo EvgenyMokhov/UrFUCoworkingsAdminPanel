@@ -5,21 +5,21 @@ using UrFUCoworkingsAdminPanel.Models.Responses.Settings;
 
 namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Settings
 {
-    public class SaveSettingAnywayRequestConsumer : IConsumer<SaveSettingAnywayRequest>
+    public class TryUpdateSettingRequestConsumer : IConsumer<TryUpdateSettingRequest>
     {
         private readonly IPublishEndpoint publishEndpoint;
         private readonly ServiceManager serviceManager;
-        public SaveSettingAnywayRequestConsumer(IPublishEndpoint endpoint, IServiceProvider provider)
+        public TryUpdateSettingRequestConsumer(IPublishEndpoint endpoint, IServiceProvider provider)
         {
             publishEndpoint = endpoint;
             serviceManager = new(provider);
         }
 
-        public async Task Consume(ConsumeContext<SaveSettingAnywayRequest> context)
+        public async Task Consume(ConsumeContext<TryUpdateSettingRequest> context)
         {
-            SaveSettingAnywayResponse response = new();
+            TryUpdateSettingResponse response = new();
             response.Id = context.Message.Id;
-            response.ResponseData = await serviceManager.CSService.CSSaveAsync(context.Message.CoworkingId, context.Message.SettingData);
+            response.ResponseData = await serviceManager.CSService.TryCSSaveAsync(context.Message.CoworkingId, context.Message.SettingData);
             await publishEndpoint.Publish(response);
         }
     }

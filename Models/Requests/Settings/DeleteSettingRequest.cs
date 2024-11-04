@@ -2,7 +2,7 @@
 
 namespace UrFUCoworkingsAdminPanel.Models.Requests.Settings
 {
-    [EntityName("deleteSetting-requests")]
+    [EntityName("delete-setting-requests-queue")]
     public class DeleteSettingRequest
     {
         public Guid Id { get; set; }

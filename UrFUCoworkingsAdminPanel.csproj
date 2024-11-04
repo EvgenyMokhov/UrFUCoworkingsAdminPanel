@@ -16,10 +16,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Requests\Zones\" />
-    <Folder Include="Models\Responses\Zones\" />
-    <Folder Include="Rabbit\Services\Zones\" />
-  </ItemGroup>
-
 </Project>

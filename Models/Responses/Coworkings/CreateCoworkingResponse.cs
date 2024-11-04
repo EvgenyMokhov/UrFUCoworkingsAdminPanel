@@ -2,7 +2,7 @@
 
 namespace UrFUCoworkingsAdminPanel.Models.Responses.Coworkings
 {
-    [EntityName("createCoworking-responses")]
+    [EntityName("create-coworking-responses-queue")]
     public class CreateCoworkingResponse
     {
         public Guid Id { get; set; }

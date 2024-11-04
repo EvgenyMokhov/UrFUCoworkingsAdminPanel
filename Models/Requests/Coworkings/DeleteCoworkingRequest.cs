@@ -2,7 +2,7 @@
 
 namespace UrFUCoworkingsAdminPanel.Models.Requests.Coworkings
 {
-    [EntityName("deleteCoworking-requests")]
+    [EntityName("delete-coworking-requests-queue")]
     public class DeleteCoworkingRequest
     {
         public Guid Id { get; set; }

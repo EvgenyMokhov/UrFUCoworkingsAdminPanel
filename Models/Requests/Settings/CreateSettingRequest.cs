@@ -2,7 +2,7 @@
 
 namespace UrFUCoworkingsAdminPanel.Models.Requests.Settings
 {
-    [EntityName("createSetting-requests")]
+    [EntityName("create-setting-requests-queue")]
     public class CreateSettingRequest
     {
         public Guid Id { get; set; }
