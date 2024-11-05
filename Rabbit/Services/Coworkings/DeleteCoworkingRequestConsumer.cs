@@ -8,17 +8,12 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Coworkings
 {
     public class DeleteCoworkingRequestConsumer : IConsumer<DeleteCoworkingRequest>
     {
-        private readonly IPublishEndpoint publishEndpoint;
         private readonly ServiceManager serviceManager;
-        public DeleteCoworkingRequestConsumer(IPublishEndpoint endpoint, IServiceProvider provider)
-        {
-            publishEndpoint = endpoint;
-            serviceManager = new(provider);
-        }
+        public DeleteCoworkingRequestConsumer(IServiceProvider provider) => serviceManager = new(provider);
         public async Task Consume(ConsumeContext<DeleteCoworkingRequest> context)
         {
             //await serviceManager.Coworkings.DeleteCoworkingAsync(context.Message.CoworkingId);
-            await publishEndpoint.Publish(new DeleteCoworkingResponse() { Id = context.Message.Id});
+            await context.RespondAsync(new DeleteCoworkingResponse());
         }
     }
 }

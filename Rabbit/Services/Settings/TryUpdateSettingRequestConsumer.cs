@@ -7,20 +7,14 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Settings
 {
     public class TryUpdateSettingRequestConsumer : IConsumer<TryUpdateSettingRequest>
     {
-        private readonly IPublishEndpoint publishEndpoint;
         private readonly ServiceManager serviceManager;
-        public TryUpdateSettingRequestConsumer(IPublishEndpoint endpoint, IServiceProvider provider)
-        {
-            publishEndpoint = endpoint;
-            serviceManager = new(provider);
-        }
+        public TryUpdateSettingRequestConsumer(IServiceProvider provider) => serviceManager = new(provider);
 
         public async Task Consume(ConsumeContext<TryUpdateSettingRequest> context)
         {
             TryUpdateSettingResponse response = new();
-            response.Id = context.Message.Id;
             response.ResponseData = await serviceManager.CSService.TryCSSaveAsync(context.Message.CoworkingId, context.Message.SettingData);
-            await publishEndpoint.Publish(response);
+            await context.RespondAsync(response);
         }
     }
 }

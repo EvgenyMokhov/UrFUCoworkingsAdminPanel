@@ -29,7 +29,7 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
             if (coworking.Id == 0)
                 Context.Coworkings.Add(coworking);
             else 
-                Context.Entry(coworking).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                Context.Entry(coworking).State = EntityState.Modified;
             Context.SaveChanges();
         }
     }

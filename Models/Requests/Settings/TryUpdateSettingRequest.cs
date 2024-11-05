@@ -3,7 +3,6 @@ using UrFUCoworkingsAdminPanel.Models.DTOs;
 
 namespace UrFUCoworkingsAdminPanel.Models.Requests.Settings
 {
-    [EntityName("try-update-setting-requests-queue")]
     public class TryUpdateSettingRequest
     {
         public Guid Id { get; set; }

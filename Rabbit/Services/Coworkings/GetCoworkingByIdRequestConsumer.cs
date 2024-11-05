@@ -7,19 +7,13 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Coworkings
 {
     public class GetCoworkingByIdRequestConsumer : IConsumer<GetCoworkingByIdRequest>
     {
-        private readonly IPublishEndpoint publishEndpoint;
         private readonly ServiceManager serviceManager;
-        public GetCoworkingByIdRequestConsumer(IPublishEndpoint endpoint, IServiceProvider provider)
-        {
-            publishEndpoint = endpoint;
-            serviceManager = new(provider);
-        }
+        public GetCoworkingByIdRequestConsumer(IServiceProvider provider) => serviceManager = new(provider);
         public async Task Consume(ConsumeContext<GetCoworkingByIdRequest> context)
         {
             GetCoworkingByIdResponse response = new();
-            response.Id = context.Message.Id;
             response.ResponseData = await serviceManager.CoworkingService.GetCoworkingAsync(context.Message.CoworkingId);
-            await publishEndpoint.Publish(response);
+            await context.RespondAsync(response);
         }
     }
 }

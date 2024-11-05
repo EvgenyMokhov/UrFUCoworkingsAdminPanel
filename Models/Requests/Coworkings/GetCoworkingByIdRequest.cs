@@ -2,7 +2,6 @@
 
 namespace UrFUCoworkingsAdminPanel.Models.Requests.Coworkings
 {
-    [EntityName("get-coworking-by-id-requests-queue")]
     public class GetCoworkingByIdRequest
     {
         public Guid Id { get; set; }

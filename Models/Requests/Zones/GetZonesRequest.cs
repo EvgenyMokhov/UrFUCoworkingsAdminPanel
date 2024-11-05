@@ -2,7 +2,6 @@
 
 namespace UrFUCoworkingsAdminPanel.Models.Requests.Zones
 {
-    [EntityName("get-zones-requests-queue")]
     public class GetZonesRequest
     {
         public Guid Id { get; set; }
