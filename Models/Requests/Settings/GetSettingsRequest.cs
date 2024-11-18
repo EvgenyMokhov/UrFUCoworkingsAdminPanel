@@ -1,10 +1,7 @@
-﻿using MassTransit;
-
-namespace UrFUCoworkingsAdminPanel.Models.Requests.Settings
+﻿namespace UrFUCoworkingsAdminPanel.Models.Requests.Settings
 {
     public class GetSettingsRequest
     {
-        public Guid Id { get; set; }
-        public int CoworkingId { get; set; }
+        public Guid CoworkingId { get; set; }
     }
 }

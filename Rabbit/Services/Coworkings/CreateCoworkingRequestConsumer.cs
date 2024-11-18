@@ -15,7 +15,6 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Coworkings
             CoworkingEdit coworking = new();
             CreateCoworkingResponse response = new();
             await serviceManager.CoworkingService.CreateCoworkingAsync(coworking);
-            response.ResponseData = coworking.Id;
             await context.RespondAsync(response);
         }
     }

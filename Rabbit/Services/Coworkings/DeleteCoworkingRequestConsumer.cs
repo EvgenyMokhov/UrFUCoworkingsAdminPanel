@@ -12,7 +12,7 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Coworkings
         public DeleteCoworkingRequestConsumer(IServiceProvider provider) => serviceManager = new(provider);
         public async Task Consume(ConsumeContext<DeleteCoworkingRequest> context)
         {
-            //await serviceManager.Coworkings.DeleteCoworkingAsync(context.Message.CoworkingId);
+            //await serviceManager.CoworkingService.DeleteCoworkingAsync(context.Message.CoworkingId);
             await context.RespondAsync(new DeleteCoworkingResponse());
         }
     }

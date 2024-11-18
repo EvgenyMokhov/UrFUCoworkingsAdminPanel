@@ -6,8 +6,8 @@ namespace UrFUCoworkingsAdminPanel.Data.Interfaces
     {
         public IEnumerable<Visit> GetAllVisits();
         public Visit GetVisit(Guid guid);
-        public Visit GetVisit(int userId, int reservationId);
+        public Visit GetVisit(Guid userId, Guid reservationId);
         public void UpdateVisit(Visit visit);
-        public Task<List<Visit>> GetVisitsByReservationIdAsync(int reservationId);
+        public Task<List<Visit>> GetVisitsByReservationIdAsync(Guid reservationId);
     }
 }

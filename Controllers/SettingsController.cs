@@ -15,32 +15,32 @@ namespace UrFUCoworkingsAdminPanel.Controllers
         public SettingsController(IServiceProvider provider) => ServiceManager = new(provider);
 
         [HttpGet(Name = "GetSettings")]
-        public async Task<List<CSEdit>> GetSettingsAsync([FromQuery] int coworkingId)
+        public async Task<List<CSEdit>> GetSettingsAsync([FromQuery] Guid coworkingId)
         {
             return await ServiceManager.CSService.GetSettingsAsync(coworkingId);
         }
 
         [HttpPost(Name = "CreateSetting")]
-        public async Task CreateSettingAsync([FromQuery] int coworkingId)
+        public async Task CreateSettingAsync([FromQuery] Guid coworkingId)
         {
             await ServiceManager.CSService.CreateSettingAsync(coworkingId);
         }
 
         [HttpPut(Name = "SaveSettingAnyway")]
-        public async Task<List<(int UserId, int ReservationId)>> UpdateSettingAsync([FromQuery] int coworkingId, [FromBody] CSEdit model)
+        public async Task<List<(Guid UserId, Guid ReservationId)>> UpdateSettingAsync([FromQuery] Guid coworkingId, [FromBody] CSEdit model)
 
         {
             return await ServiceManager.CSService.CSSaveAsync(coworkingId, model);
         }
 
         [HttpPut("{coworkingId}", Name = "TrySaveSetting")]
-        public async Task<List<int>> TrySaveSettingAsync(int coworkingId, [FromBody] CSEdit model)
+        public async Task<List<Guid>> TrySaveSettingAsync(Guid coworkingId, [FromBody] CSEdit model)
         {
             return await ServiceManager.CSService.TryCSSaveAsync(coworkingId, model);
         }
 
         [HttpDelete(Name = "DeleteSetting")]
-        public async Task DeleteSettingAsync([FromQuery] int settingId)
+        public async Task DeleteSettingAsync([FromQuery] Guid settingId)
         {
             await ServiceManager.CSService.DeleteSettingAsync(settingId);
         }

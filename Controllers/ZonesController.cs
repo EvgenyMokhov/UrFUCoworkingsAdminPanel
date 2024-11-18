@@ -13,25 +13,25 @@ namespace UrFUCoworkingsAdminPanel.Controllers
         public ZonesController(IServiceProvider provider) => ServiceManager = new(provider);
 
         [HttpGet(Name = "GetZones")]
-        public async Task<List<ZoneEdit>> GetZonesAsync([FromQuery] int coworkingId)
+        public async Task<List<ZoneEdit>> GetZonesAsync([FromQuery] Guid coworkingId)
         {
             return await ServiceManager.ZoneService.GetZonesAsync(coworkingId);
         }
 
         [HttpPost(Name = "CreateZone")]
-        public async Task CreateZoneAsync([FromQuery] int coworkingId)
+        public async Task CreateZoneAsync([FromQuery] Guid coworkingId)
         {
             await ServiceManager.ZoneService.CreateZoneAsync(coworkingId);
         }
 
         [HttpPut(Name = "UpdateZone")]
-        public async Task UpdateZoneAsync([FromQuery] int coworkingId, [FromBody] ZoneEdit editModel)
+        public async Task UpdateZoneAsync([FromQuery] Guid coworkingId, [FromBody] ZoneEdit editModel)
         {
             await ServiceManager.ZoneService.UpdateZoneAsync(coworkingId, editModel);
         }
 
         [HttpDelete(Name = "DeleteZone")]
-        public async Task DeleteZoneAsync([FromQuery] int zoneId)
+        public async Task DeleteZoneAsync([FromQuery] Guid zoneId)
         {
             await ServiceManager.ZoneService.DeleteZoneAsync(zoneId);
         }

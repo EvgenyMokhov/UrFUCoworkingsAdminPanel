@@ -4,9 +4,10 @@ namespace UrFUCoworkingsAdminPanel.Data.Interfaces
 {
     public interface ICoworkingsSettings
     {
-        public Task<List<CoworkingSettings>> GetCoworkingSettingsAsync(int coworkingId);
-        public Task<CoworkingSettings> GetCoworkingSettingAsync(int id);
+        public Task<List<CoworkingSettings>> GetCoworkingSettingsAsync(Guid coworkingId);
+        public Task<CoworkingSettings> GetCoworkingSettingAsync(Guid id);
         public Task UpdateCoworkingSettingsAsync(CoworkingSettings coworkingSettings);
-        public Task DeleteCoworkingSettingsAsync(int id);
+        public Task DeleteCoworkingSettingsAsync(Guid id);
+        public Task CreateCoworkingSettingsAsync(CoworkingSettings settings);
     }
 }

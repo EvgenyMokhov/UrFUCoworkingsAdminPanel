@@ -1,6 +1,4 @@
-﻿using MassTransit;
-
-namespace UrFUCoworkingsAdminPanel.Models.Responses.Coworkings
+﻿namespace UrFUCoworkingsAdminPanel.Models.Responses.Coworkings
 {
     public class UpdateCoworkingResponse
     {

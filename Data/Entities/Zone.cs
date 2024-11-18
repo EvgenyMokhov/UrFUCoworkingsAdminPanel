@@ -2,9 +2,9 @@
 {
     public class Zone
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public virtual List<Place> Places { get; set; } = null!;
-        public int CoworkingId { get; set; }
+        public Guid CoworkingId { get; set; }
         public virtual Coworking Coworking { get; set; } = null!;
     }
 }

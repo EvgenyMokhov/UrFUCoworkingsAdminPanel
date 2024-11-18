@@ -1,10 +1,7 @@
-﻿using MassTransit;
-
-namespace UrFUCoworkingsAdminPanel.Models.Requests.Settings
+﻿namespace UrFUCoworkingsAdminPanel.Models.Requests.Settings
 {
     public class DeleteSettingRequest
     {
-        public Guid Id { get; set; }
-        public int SettingId { get; set; }
+        public Guid SettingId { get; set; }
     }
 }

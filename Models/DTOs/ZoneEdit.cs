@@ -4,7 +4,7 @@ namespace UrFUCoworkingsAdminPanel.Models.DTOs
 {
     public class ZoneEdit
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public int PlacesCount { get; set; }
     }
 }

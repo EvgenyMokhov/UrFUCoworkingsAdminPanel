@@ -9,13 +9,13 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
     {
         private readonly EFDBContext Context;
         public Zones(EFDBContext context) => Context = context;
-        public async Task DeleteZoneAsync(int id)
+        public async Task DeleteZoneAsync(Guid id)
         {
             Context.Zones.Remove(await Context.Zones.FirstOrDefaultAsync(z => z.Id == id));
             await Context.SaveChangesAsync();
         }
 
-        public async Task<Zone> GetZoneAsync(int id)
+        public async Task<Zone> GetZoneAsync(Guid id)
         {
             return await Context.Zones.FirstOrDefaultAsync(z => z.Id == id);
         }
@@ -27,16 +27,19 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
 
         public async Task UpdateZoneAsync(Zone zone)
         {
-            if (zone.Id == 0)
-                await Context.Zones.AddAsync(zone);
-            else
-                Context.Entry(zone).State = EntityState.Modified;
+            Context.Entry(zone).State = EntityState.Modified;
             await Context.SaveChangesAsync();
         }
 
-        public async Task<List<Zone>> GetZonesWithCoworkingIdAsync(int coworkingId)
+        public async Task<List<Zone>> GetZonesWithCoworkingIdAsync(Guid coworkingId)
         {
             return await Context.Zones.Where(zone => zone.CoworkingId == coworkingId).ToListAsync();
+        }
+
+        public async Task CreateZoneAsync(Zone zone)
+        {
+            await Context.Zones.AddAsync(zone);
+            await Context.SaveChangesAsync();
         }
     }
 }

@@ -8,13 +8,13 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
     {
         private readonly EFDBContext Context;
         public Coworkings(EFDBContext context) => Context = context;
-        public async Task DeleteCoworking(int id)
+        public async Task DeleteCoworking(Guid id)
         {
             Context.Coworkings.Remove(await GetCoworkingAsync(id));
             await Context.SaveChangesAsync();
         }
 
-        public async Task<Coworking> GetCoworkingAsync(int id)
+        public async Task<Coworking> GetCoworkingAsync(Guid id)
         {
             return await Context.Coworkings.FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -26,11 +26,14 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
 
         public async Task UpdateCoworkingAsync(Coworking coworking)
         {
-            if (coworking.Id == 0)
-                Context.Coworkings.Add(coworking);
-            else 
-                Context.Entry(coworking).State = EntityState.Modified;
-            Context.SaveChanges();
+            
+            Context.Entry(coworking).State = EntityState.Modified;
+            await Context.SaveChangesAsync();
+        }
+        public async Task CreateCoworkingAsync(Coworking coworking)
+        {
+            await Context.Coworkings.AddAsync(coworking);
+            await Context.SaveChangesAsync();
         }
     }
 }

@@ -2,8 +2,8 @@
 {
     public class Reservation
     {
-        public int Id { get; set; }
-        public int ReservatorId { get; set; }
+        public Guid Id { get; set; }
+        public Guid ReservatorId { get; set; }
         public DateTime ReservationBegin { get; set; }
         public DateTime ReservationEnd { get; set; }
         public virtual List<Visit> Visits { get; set; } = new();

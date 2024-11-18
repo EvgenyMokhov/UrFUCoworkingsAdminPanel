@@ -14,7 +14,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             return new() { Id = settings.Id, Day = settings.Day, Opening = settings.Opening, Closing = settings.Closing, IsWorking = settings.IsWorking };
         }
 
-        public async Task<List<CSEdit>> GetSettingsAsync(int coworkingId)
+        public async Task<List<CSEdit>> GetSettingsAsync(Guid coworkingId)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = new(serviceProvider);
@@ -22,28 +22,28 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             return cs.Select(DbCSToEdit).ToList();
         }
 
-        public async Task CreateSettingAsync(int coworkingId)
+        public async Task CreateSettingAsync(Guid coworkingId)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = new(serviceProvider);
             CoworkingSettings setting = new();
-            setting.Id = 0;
+            setting.Id = Guid.NewGuid();
             setting.Day = new();
             setting.Opening = new();
             setting.Closing = new();
             setting.IsWorking = true;
             setting.CoworkingId = coworkingId;
-            await dataManager.CoworkingsSettings.UpdateCoworkingSettingsAsync(setting);
+            await dataManager.CoworkingsSettings.CreateCoworkingSettingsAsync(setting);
         }
 
-        public async Task DeleteSettingAsync(int settingId)
+        public async Task DeleteSettingAsync(Guid settingId)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = new(serviceProvider);
             await dataManager.CoworkingsSettings.DeleteCoworkingSettingsAsync(settingId);
         }
 
-        public async Task<List<(int UserId, int ReservationId)>> CSSaveAsync(int coworkingId, CSEdit model)
+        public async Task<List<(Guid UserId, Guid ReservationId)>> CSSaveAsync(Guid coworkingId, CSEdit model)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = new(serviceProvider);
@@ -51,7 +51,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             EditToDb(coworkingId, model, setting);
             await dataManager.CoworkingsSettings.UpdateCoworkingSettingsAsync(setting);
             List<Reservation> reservations = await dataManager.Reservations.GetReservationsOnDateAsync(model.Day);
-            List<(int UserId, int ReservationId)> userIds = new();
+            List<(Guid UserId, Guid ReservationId)> userIds = new();
             foreach (Reservation reservation in reservations) 
             {
                 TimeOnly reservationBegin = TimeOnly.FromDateTime(reservation.ReservationBegin);
@@ -67,12 +67,12 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             return userIds;
         }
 
-        public async Task<List<int>> TryCSSaveAsync(int coworkingId, CSEdit model)
+        public async Task<List<Guid>> TryCSSaveAsync(Guid coworkingId, CSEdit model)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = new(serviceProvider);
             List<Reservation> reservations = await dataManager.Reservations.GetReservationsOnDateAsync(model.Day);
-            List<int> reservationIds = new();
+            List<Guid> reservationIds = new();
             foreach (Reservation reservation in reservations)
             {
                 TimeOnly reservationBegin = TimeOnly.FromDateTime(reservation.ReservationBegin);
@@ -89,7 +89,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             return reservationIds;
         }
 
-        private void EditToDb(int coworkingId, CSEdit model, CoworkingSettings settings)
+        private void EditToDb(Guid coworkingId, CSEdit model, CoworkingSettings settings)
         {
             settings.CoworkingId = coworkingId;
             settings.Day = model.Day;

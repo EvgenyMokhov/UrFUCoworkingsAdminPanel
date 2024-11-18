@@ -19,7 +19,7 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
             return Context.Visits.FirstOrDefault(x => x.Id == guid);
         }
 
-        public Visit GetVisit(int userId, int reservationId)
+        public Visit GetVisit(Guid userId, Guid reservationId)
         {
             return Context.Visits.FirstOrDefault(x => x.UserId == userId && x.ReservationId == reservationId);
         }
@@ -30,7 +30,7 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
             Context.SaveChanges();
         }
 
-        public async Task<List<Visit>> GetVisitsByReservationIdAsync(int reservationId)
+        public async Task<List<Visit>> GetVisitsByReservationIdAsync(Guid reservationId)
         {
             return await Context.Visits.Where(visit => visit.ReservationId == reservationId).ToListAsync();
         }

@@ -15,13 +15,13 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = new(serviceProvider);
             Coworking coworking = new();
-            coworking.Id = editModel.Id;
+            coworking.Id = Guid.NewGuid();
             coworking.Name = editModel.Name;
             coworking.Opening = new TimeOnly(8, 30);
             coworking.Closing = new TimeOnly(17, 0);
             coworking.Zones = new();
             coworking.Settings = new();
-            await dataManager.Coworkings.UpdateCoworkingAsync(coworking);
+            await dataManager.Coworkings.CreateCoworkingAsync(coworking);
         }
 
         public async Task<List<CoworkingView>> GetCoworkingsAsync()
@@ -32,7 +32,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
             return data.Select(CoworkingDbToView).ToList();
         }
 
-        public async Task<CoworkingEdit> GetCoworkingAsync(int id)
+        public async Task<CoworkingEdit> GetCoworkingAsync(Guid id)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = new(serviceProvider);

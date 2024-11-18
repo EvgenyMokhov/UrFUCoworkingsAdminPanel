@@ -4,6 +4,6 @@ namespace UrFUCoworkingsAdminPanel.Models.Responses.Settings
 {
     public class TryUpdateSettingResponse
     {
-        public List<int> ResponseData { get; set; }
+        public List<Guid> ResponseData { get; set; }
     }
 }

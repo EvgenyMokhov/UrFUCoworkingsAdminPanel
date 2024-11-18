@@ -1,5 +1,4 @@
-﻿using MassTransit;
-using UrFUCoworkingsAdminPanel.Models.DTOs;
+﻿using UrFUCoworkingsAdminPanel.Models.DTOs;
 
 namespace UrFUCoworkingsAdminPanel.Models.Responses.Coworkings
 {

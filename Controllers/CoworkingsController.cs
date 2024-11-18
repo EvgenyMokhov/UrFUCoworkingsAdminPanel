@@ -31,13 +31,13 @@ namespace UrFUCoworkingsAdminPanel.Controllers
         }
 
         [HttpGet("{coworkingId}", Name = "GetCoworking")]
-        public async Task<CoworkingEdit> GetCoworkingByIdAsync(int coworkingId)
+        public async Task<CoworkingEdit> GetCoworkingByIdAsync(Guid coworkingId)
         { 
             return await ServiceManager.CoworkingService.GetCoworkingAsync(coworkingId); 
         }
 
         [HttpDelete(Name = "DeleteCoworking")]
-        public async Task DeleteCoworkingAsync([FromQuery] int coworkingId)
+        public async Task DeleteCoworkingAsync([FromQuery] Guid coworkingId)
         {
             
         }
