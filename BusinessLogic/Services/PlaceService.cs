@@ -1,7 +1,6 @@
-﻿using System.Data.SqlTypes;
-using UrFUCoworkingsAdminPanel.Data;
+﻿using UrFUCoworkingsAdminPanel.Data;
 using UrFUCoworkingsAdminPanel.Data.Entities;
-using UrFUCoworkingsAdminPanel.Models.DTOs;
+using UrFUCoworkingsModels.DTOs;
 
 namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
 {
@@ -13,7 +12,7 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         public async Task<Place> CreatePlaceAsync(Guid zoneId)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataManager dataManager = new(serviceProvider);
+            DataManager dataManager = scope.ServiceProvider.GetRequiredService<DataManager>();
             Place place = new() {Id = Guid.NewGuid(), Zone = await dataManager.Zones.GetZoneAsync(zoneId) };
             await dataManager.Places.CreatePlaceAsync(place);
             return place;

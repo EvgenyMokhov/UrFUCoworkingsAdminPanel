@@ -1,8 +1,8 @@
 ﻿using MassTransit;
 using UrFUCoworkingsAdminPanel.BusinessLogic;
-using UrFUCoworkingsAdminPanel.Models.DTOs;
-using UrFUCoworkingsAdminPanel.Models.Requests.Coworkings;
-using UrFUCoworkingsAdminPanel.Models.Responses.Coworkings;
+using UrFUCoworkingsModels.DTOs;
+using UrFUCoworkingsModels.Requests.Coworkings;
+using UrFUCoworkingsModels.Responses.Coworkings;
 
 namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Coworkings
 {
@@ -13,6 +13,9 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Coworkings
         public async Task Consume(ConsumeContext<CreateCoworkingRequest> context)
         {
             CoworkingEdit coworking = new();
+            coworking.Name = "Coworking";
+            coworking.Settings = new();
+            coworking.Zones = new();
             CreateCoworkingResponse response = new();
             await serviceManager.CoworkingService.CreateCoworkingAsync(coworking);
             await context.RespondAsync(response);

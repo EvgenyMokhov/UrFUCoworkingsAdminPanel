@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using UrFUCoworkingsAdminPanel.BusinessLogic;
-using UrFUCoworkingsAdminPanel.Models.Requests.Zones;
-using UrFUCoworkingsAdminPanel.Models.Responses.Zones;
+using UrFUCoworkingsModels.Requests.Zones;
+using UrFUCoworkingsModels.Responses.Zones;
 
 namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Zones
 {

@@ -16,4 +16,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="UrFUCoworkingsModels">
+      <HintPath>..\UrFUCoworkingsModels\bin\Debug\net8.0\UrFUCoworkingsModels.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using UrFUCoworkingsAdminPanel.BusinessLogic;
-using UrFUCoworkingsAdminPanel.Models.Requests.Settings;
-using UrFUCoworkingsAdminPanel.Models.Responses.Settings;
+using UrFUCoworkingsModels.Requests.Settings;
+using UrFUCoworkingsModels.Responses.Settings;
 
 namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Settings
 {
@@ -13,7 +13,7 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Settings
         public async Task Consume(ConsumeContext<TryUpdateSettingRequest> context)
         {
             TryUpdateSettingResponse response = new();
-            response.ResponseData = await serviceManager.CSService.TryCSSaveAsync(context.Message.CoworkingId, context.Message.SettingData);
+            response.ResponseData = await serviceManager.CSService.TryCSSaveAsync(context.Message.SettingData);
             await context.RespondAsync(response);
         }
     }

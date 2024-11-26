@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using UrFUCoworkingsAdminPanel.BusinessLogic;
-using UrFUCoworkingsAdminPanel.Models.Requests.Zones;
-using UrFUCoworkingsAdminPanel.Models.Responses.Zones;
+using UrFUCoworkingsModels.Requests.Zones;
+using UrFUCoworkingsModels.Responses.Zones;
 
 namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Zones
 {
@@ -12,7 +12,7 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Zones
         
         public async Task Consume(ConsumeContext<UpdateZoneRequest> context)
         {
-            await serviceManager.ZoneService.UpdateZoneAsync(context.Message.CoworkingId, context.Message.RequestData);
+            await serviceManager.ZoneService.UpdateZoneAsync(context.Message.RequestData);
             await context.RespondAsync(new UpdateZoneResponse());
         }
     }
