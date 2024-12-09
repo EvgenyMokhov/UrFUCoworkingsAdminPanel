@@ -1,5 +1,5 @@
 ﻿using UrFUCoworkingsAdminPanel.Data;
-using UrFUCoworkingsAdminPanel.Data.Entities;
+using UrFUCoworkingsModels.Data.Entities;
 using UrFUCoworkingsModels.DTOs;
 
 namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
@@ -41,7 +41,8 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
         {
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = scope.ServiceProvider.GetRequiredService<DataManager>();
-            await dataManager.CoworkingsSettings.DeleteCoworkingSettingsAsync(settingId);
+            CoworkingSettings settings = await dataManager.CoworkingsSettings.GetCoworkingSettingAsync(settingId);
+            await dataManager.CoworkingsSettings.DeleteCoworkingSettingsAsync(settings);
         }
 
         public async Task<List<ReservationEdit>> CSSaveAsync(CSDTO model)
@@ -59,24 +60,11 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic.Services
                 TimeOnly reservationEnd = TimeOnly.FromDateTime(reservation.ReservationEnd);
                 if (!model.IsWorking || !(reservationBegin >= model.Opening && reservationEnd <= model.Closing))
                 {
-                    result.Add(ReservationToEdit(reservation));
-                    await dataManager.Reservations.DeleteReservationAsync(reservation.Id);
+                    result.Add(new ReservationService().ReservationToEdit(reservation));
+                    await dataManager.Reservations.DeleteReservationAsync(reservation);
                 }
             }
             return result;
-        }
-
-        private ReservationEdit ReservationToEdit(Reservation reservation)
-        {
-            ReservationEdit editModel = new();
-            editModel.ReservationId = reservation.Id;
-            editModel.ReservatorId = reservation.ReservatorId;
-            editModel.ReservationDay = DateOnly.FromDateTime(reservation.ReservationBegin);
-            editModel.ReservationBegin = TimeOnly.FromDateTime(reservation.ReservationBegin);
-            editModel.ReservationEnd = TimeOnly.FromDateTime(reservation.ReservationEnd);
-            editModel.PlacesIds = reservation.Places.Select(place => place.Id).ToList();
-            editModel.UserIds = reservation.Visits.Select(visit => visit.UserId).ToList();
-            return editModel;
         }
 
         public async Task<List<Guid>> TryCSSaveAsync(CSDTO model)

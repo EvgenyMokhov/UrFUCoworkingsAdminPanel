@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UrFUCoworkingsAdminPanel.Data.Entities;
 using UrFUCoworkingsAdminPanel.Data.Interfaces;
+using UrFUCoworkingsModels.Data;
+using UrFUCoworkingsModels.Data.Entities;
 
 namespace UrFUCoworkingsAdminPanel.Data.Implementations
 {
@@ -8,9 +9,9 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
     {
         private readonly EFDBContext Context;
         public CoworkingsSettings(EFDBContext context) => Context = context;
-        public async Task DeleteCoworkingSettingsAsync(Guid id)
+        public async Task DeleteCoworkingSettingsAsync(CoworkingSettings settings)
         {
-            Context.CoworkingSettings.Remove(await GetCoworkingSettingAsync(id));
+            Context.CoworkingSettings.Remove(settings);
             await Context.SaveChangesAsync();
         }
 
@@ -34,6 +35,11 @@ namespace UrFUCoworkingsAdminPanel.Data.Implementations
         {
             await Context.CoworkingSettings.AddAsync(settings);
             await Context.SaveChangesAsync();
+        }
+
+        public async Task<List<CoworkingSettings>> GetAllSettings()
+        {
+            return await Context.CoworkingSettings.ToListAsync();
         }
     }
 }

@@ -12,8 +12,9 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Coworkings
 
         public async Task Consume(ConsumeContext<UpdateCoworkingRequest> context)
         {
-            await serviceManager.CoworkingService.UpdateCoworkingAsync(context.Message.RequestData);
-            await context.RespondAsync(new UpdateCoworkingResponse());
+            UpdateCoworkingResponse response = new();
+            response.ResponseData = await serviceManager.CoworkingService.UpdateCoworkingAsync(context.Message.RequestData);
+            await context.RespondAsync(response);
         }
     }
 }

@@ -12,8 +12,9 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Zones
         
         public async Task Consume(ConsumeContext<UpdateZoneRequest> context)
         {
-            await serviceManager.ZoneService.UpdateZoneAsync(context.Message.RequestData);
-            await context.RespondAsync(new UpdateZoneResponse());
+            UpdateZoneResponse response = new();
+            response.ResponseData = await serviceManager.ZoneService.UpdateZoneAsync(context.Message.RequestData);
+            await context.RespondAsync(response);
         }
     }
 }

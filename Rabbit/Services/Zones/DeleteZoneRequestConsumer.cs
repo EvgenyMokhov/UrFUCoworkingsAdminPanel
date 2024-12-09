@@ -11,8 +11,9 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Zones
         public DeleteZoneRequestConsumer(IServiceProvider provider) => serviceManager = new(provider);
         public async Task Consume(ConsumeContext<DeleteZoneRequest> context)
         {
-            await serviceManager.ZoneService.DeleteZoneAsync(context.Message.ZoneId);
-            await context.RespondAsync(new DeleteZoneResponse());
+            DeleteZoneResponse response = new();
+            response.ResponseData = await serviceManager.ZoneService.DeleteZoneAsync(context.Message.ZoneId);
+            await context.RespondAsync(response);
         }
     }
 }

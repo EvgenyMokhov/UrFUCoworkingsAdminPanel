@@ -1,4 +1,4 @@
-﻿using UrFUCoworkingsAdminPanel.Data.Entities;
+﻿using UrFUCoworkingsModels.Data.Entities;
 
 namespace UrFUCoworkingsAdminPanel.Data.Interfaces
 {
@@ -8,6 +8,6 @@ namespace UrFUCoworkingsAdminPanel.Data.Interfaces
         public Task<Coworking> GetCoworkingAsync(Guid id);
         public Task UpdateCoworkingAsync(Coworking coworking);
         public Task CreateCoworkingAsync(Coworking coworking);
-        public Task DeleteCoworking(Guid id);
+        public Task DeleteCoworkingAsync(Coworking coworking);
     }
 }

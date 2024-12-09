@@ -8,11 +8,13 @@ namespace UrFUCoworkingsAdminPanel.BusinessLogic
         public CoworkingService CoworkingService { get; set; }
         public ZoneService ZoneService { get; set; }
         public CSService CSService { get; set; }
+        public PlaceService PlaceService { get; set; }
         public ServiceManager(IServiceProvider provider) 
         {
             CoworkingService = new(provider);
             ZoneService = new(provider);
             CSService = new(provider);
+            PlaceService = new(provider);
         }
     }
 }

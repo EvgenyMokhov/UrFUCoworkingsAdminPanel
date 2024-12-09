@@ -12,7 +12,7 @@ namespace UrFUCoworkingsAdminPanel.Rabbit.Services.Coworkings
         public CreateCoworkingRequestConsumer(IServiceProvider provider) => serviceManager = new(provider);
         public async Task Consume(ConsumeContext<CreateCoworkingRequest> context)
         {
-            CoworkingEdit coworking = new();
+            CoworkingDTO coworking = new();
             coworking.Name = "Coworking";
             coworking.Settings = new();
             coworking.Zones = new();
